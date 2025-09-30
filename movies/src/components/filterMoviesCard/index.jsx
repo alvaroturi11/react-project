@@ -1,4 +1,4 @@
-//import React from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
@@ -10,7 +10,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
-import React, { useState, useEffect } from "react";
 
 const formControl =
 {
@@ -21,11 +20,6 @@ const formControl =
 
 export default function FilterMoviesCard(props) {
 
-    /*const genres = [
-      {id: 1, name: "Animation"},
-      {id: 2, name: "Comedy"},
-      {id: 3, name: "Thriller"}
-    ]*/
     const [genres, setGenres] = useState([{ id: '0', name: "All" }])
 
     useEffect(() => {
@@ -46,15 +40,14 @@ export default function FilterMoviesCard(props) {
 
     const handleChange = (e, type, value) => {
         e.preventDefault()
-        // Completed later
-    };
+        props.onUserInput(type, value)   // NEW
+    }
     const handleTextChange = e => {
         handleChange(e, "name", e.target.value)
     }
     const handleGenreChange = e => {
         handleChange(e, "genre", e.target.value)
     };
-
 
     return (
         <Card
