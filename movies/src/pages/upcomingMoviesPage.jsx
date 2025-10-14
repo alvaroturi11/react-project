@@ -6,13 +6,13 @@ import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
 import { getUpcomingMovies } from "../api/tmdb-api";
 
 const UpcomingMoviesPage = () => {
-    // Run a single query to fetch all upcoming movies from TMDB
+    // Run a single query to fetch all upcoming movies
     const { data, error, isLoading, isError } = useQuery({
         queryKey: ["upcomingMovies"],
         queryFn: getUpcomingMovies,
     });
 
-    // If the data is still loading, show the spinner
+    // Check if the query is still loading.
     if (isLoading) {
         return <Spinner />;
     }
