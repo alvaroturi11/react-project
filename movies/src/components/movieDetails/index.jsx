@@ -9,6 +9,7 @@ import StarRate from "@mui/icons-material/StarRate";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
+import LanguageIcon from "@mui/icons-material/Language";
 
 
 const root = {
@@ -56,6 +57,9 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         <Chip
           icon={<StarRate />}
           label={`${movie.vote_average} (${movie.vote_count})`}
+        />
+        <Chip icon={<LanguageIcon />} 
+        label={`Original Language: ${movie.original_language}`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
