@@ -5,6 +5,7 @@ import PageTemplate from "../components/templatePersonPage";
 import { getPerson, getPersonMovieCredits } from "../api/tmdb-api";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../components/spinner";
+import PersonFilmography from "../components/personFilmography";
 
 const PersonDetailsPage = () => {
     const { id } = useParams();
@@ -35,6 +36,7 @@ const PersonDetailsPage = () => {
                 <>
                     <PageTemplate person={person}>
                         <PersonDetails person={person} credits={credits} />
+                        <PersonFilmography person={person} />
                     </PageTemplate>
                 </>
             ) : (
