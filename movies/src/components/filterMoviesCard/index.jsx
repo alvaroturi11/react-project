@@ -14,6 +14,7 @@ import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../spinner';
+import Slider from "@mui/material/Slider";
 
 const formControl =
 {
@@ -51,6 +52,10 @@ export default function FilterMoviesCard(props) {
 
     const handleGenreChange = (e) => {
         handleChange(e, "genre", e.target.value);
+    };
+
+    const handleRatingChange = (e, newValue) => {
+        props.onUserInput("rating", newValue);
     };
 
     return (
@@ -93,6 +98,19 @@ export default function FilterMoviesCard(props) {
                         })}
                     </Select>
                 </FormControl>
+
+                <Typography sx={{ mt: 2 }} gutterBottom>
+                    Minimum Rating: {props.ratingFilter ?? 0}
+                </Typography>
+                <Slider
+                    value={props.ratingFilter ?? 0}
+                    onChange={handleRatingChange}
+                    step={0.5}
+                    min={0}
+                    max={10}
+                    valueLabelDisplay="auto"
+                    sx={{ width: "90%", ml: 1 }}
+                />
             </CardContent>
             <CardMedia
                 sx={{ height: 300 }}
