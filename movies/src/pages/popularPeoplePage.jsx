@@ -60,7 +60,7 @@ const PopularPeoplePage = () => {
     return (
         <>
             <Typography variant="h4" align="center" sx={{ my: 3 }}>
-                Popular People (Page {page})
+                Popular People
             </Typography>
 
             <Grid
