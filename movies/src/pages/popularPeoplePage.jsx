@@ -11,9 +11,11 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Link } from "react-router";
+import FilterPeopleCard from "../components/filterPeopleCard";
 
 const PopularPeoplePage = () => {
     const [page, setPage] = useState(1);
+    const [nameFilter, setNameFilter] = useState("");
 
     const { data, error, isLoading, isError } = useQuery({
         queryKey: ["popularPeople", { page }],
@@ -34,6 +36,18 @@ const PopularPeoplePage = () => {
     // Extract the list of people from the query result
     const people = data.results;
 
+    // Remove duplicates
+    const uniquePeople = Array.from(new Map(people.map((p) => [p.id, p])).values());
+
+    // Filter
+    const displayedPeople = uniquePeople.filter((p) =>
+        p.name?.toLowerCase().includes(nameFilter.toLowerCase())
+    );
+
+    const handleChange = (type, value) => {
+        if (type === "name") setNameFilter(value);
+    };
+
     //const toDo = () => true;
     const handleNext = () => {
         if (page < data.total_pages) setPage((p) => p + 1);
@@ -49,13 +63,36 @@ const PopularPeoplePage = () => {
                 Popular People (Page {page})
             </Typography>
 
-            <Grid container spacing={2} justifyContent="center" sx={{ px: 2 }}>
-                {people.map((person) => (
-                    <Grid item key={person.id} xs={6} sm={4} md={3} lg={2}>
-                        <Card>
+            <Grid
+                container
+                spacing={2}
+                sx={{ px: 2 }}
+                alignItems="flex-start"
+                justifyContent="flex-start"
+            >
+                <Grid item xs={12} sm={6} md={3} lg={3} xl={2} sx={{ display: "flex" }}>
+                    <FilterPeopleCard
+                        onUserInput={handleChange}
+                        nameFilter={nameFilter}
+                    />
+                </Grid>
+
+                {displayedPeople.map((person) => (
+                    <Grid
+                        item
+                        key={person.id}
+                        xs={12}
+                        sm={6}
+                        md={3}
+                        lg={3}
+                        xl={2}
+                        sx={{ display: "flex" }}
+                    >
+                        <Card sx={{ width: "100%", height: "100%" }}>
                             <CardActionArea component={Link} to={`/person/${person.id}`}>
                                 <CardMedia
                                     component="img"
+                                    sx={{ height: 300, objectFit: "cover" }}
                                     image={
                                         person.profile_path
                                             ? `https://image.tmdb.org/t/p/w300${person.profile_path}`
@@ -64,7 +101,11 @@ const PopularPeoplePage = () => {
                                     alt={person.name}
                                 />
                                 <CardContent>
-                                    <Typography variant="subtitle1" align="center">
+                                    <Typography
+                                        variant="subtitle1"
+                                        align="center"
+                                        sx={{ fontWeight: 500 }}
+                                    >
                                         {person.name}
                                     </Typography>
                                 </CardContent>
