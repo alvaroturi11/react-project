@@ -22,12 +22,18 @@ export default function FilterPeopleCard(props) {
 
     return (
         <Card
-            sx={{ backgroundColor: "rgb(204, 204, 0)" }}
-            variant="outlined"
+            elevation={0}
+            sx={{
+                bgcolor: "#ffffff",
+                borderRadius: 3,
+                boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                border: "1px solid",
+                borderColor: "divider",
+            }}
         >
             <CardContent>
-                <Typography variant="h5" component="h1">
-                    <SearchIcon fontSize="large" />
+                <Typography variant="h5" component="h1" sx={{ fontWeight: 700 }}>
+                    <SearchIcon fontSize="medium" sx={{ color: "text.primary" }} />
                     Filter the people.
                 </Typography>
 

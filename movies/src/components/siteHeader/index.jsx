@@ -49,15 +49,15 @@ const SiteHeader = () => {
 
   return (
     <>
-      <AppBar position="fixed" color="secondary">
+      <AppBar position="fixed" color="primary">
         <Toolbar>
-          <Typography variant="h4" sx={{ flexGrow: 1 }}>
+          <Typography variant="h5" sx={{ fontWeight: 800 }}>
             TMDB Client
           </Typography>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          <Typography variant="body1" sx={{ opacity: 0.85, ml: 3, flexGrow: 1 }}>
             All you ever wanted to know about Movies!
           </Typography>
-          
+
           <Button
             color="inherit"
             startIcon={<MenuIcon />}

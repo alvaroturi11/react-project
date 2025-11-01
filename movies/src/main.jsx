@@ -15,6 +15,9 @@ import TrendingTodayPage from "./pages/trendingTodayPage.jsx";
 import TopRatedMoviesPage from "./pages/topRatedMoviesPage.jsx";
 import PopularPeoplePage from "./pages/popularPeoplePage.jsx";
 import PersonDetailsPage from "./pages/personDetailsPage.jsx"
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import theme from "./theme";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,24 +32,27 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <SiteHeader />
-        <MoviesContextProvider>
-          <Routes>
-            <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-            <Route path="/reviews/:id" element={<MovieReviewPage />} />
-            <Route path="/movies/:id" element={<MoviePage />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="*" element={<Navigate to="/" />} />
-            <Route path="/reviews/form" element={<AddMovieReviewPage />} />
-            <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-            <Route path="/movies/trending/today" element={<TrendingTodayPage />} />
-            <Route path="/movies/top_rated" element={<TopRatedMoviesPage />} />
-            <Route path="/people/popular" element={<PopularPeoplePage />} />
-            <Route path="/person/:id" element={<PersonDetailsPage />} />
-          </Routes>
-        </MoviesContextProvider>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <SiteHeader />
+          <MoviesContextProvider>
+            <Routes>
+              <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+              <Route path="/reviews/:id" element={<MovieReviewPage />} />
+              <Route path="/movies/:id" element={<MoviePage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+              <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+              <Route path="/movies/trending/today" element={<TrendingTodayPage />} />
+              <Route path="/movies/top_rated" element={<TopRatedMoviesPage />} />
+              <Route path="/people/popular" element={<PopularPeoplePage />} />
+              <Route path="/person/:id" element={<PersonDetailsPage />} />
+            </Routes>
+          </MoviesContextProvider>
+        </BrowserRouter>
+      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
