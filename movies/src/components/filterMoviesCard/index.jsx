@@ -62,6 +62,10 @@ export default function FilterMoviesCard(props) {
         handleChange(e, "language", e.target.value);
     };
 
+    const handleSortChange = (e) => {
+        handleChange(e, "sort", e.target.value);
+    };
+
     return (
         <Card
             sx={{
@@ -133,6 +137,24 @@ export default function FilterMoviesCard(props) {
                         <MenuItem value="ja">Japanese</MenuItem>
                         <MenuItem value="ko">Korean</MenuItem>
                         <MenuItem value="zh">Chinese</MenuItem>
+                    </Select>
+                </FormControl>
+
+                <FormControl sx={{ ...formControl, mt: 2 }}>
+                    <InputLabel id="sort-label">Sort by</InputLabel>
+                    <Select
+                        labelId="sort-label"
+                        id="sort-select"
+                        value={props.sortOrderFilter ?? "none"}
+                        onChange={handleSortChange}
+                    >
+                        <MenuItem value="none">None</MenuItem>
+                        <MenuItem value="date_desc">Release date: New → Old</MenuItem>
+                        <MenuItem value="date_asc">Release date: Old → New</MenuItem>
+                        <MenuItem value="rating_desc">Rating: High → Low</MenuItem>
+                        <MenuItem value="rating_asc">Rating: Low → High</MenuItem>
+                        <MenuItem value="title_asc">Title: A → Z</MenuItem>
+                        <MenuItem value="title_desc">Title: Z → A</MenuItem>
                     </Select>
                 </FormControl>
             </CardContent>

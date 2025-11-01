@@ -9,6 +9,7 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [genreFilter, setGenreFilter] = useState("0");
   const [ratingFilter, setRatingFilter] = useState(0);
   const [languageFilter, setLanguageFilter] = useState("All");
+  const [sortOrderFilter, setSortOrderFilter] = useState("none");
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -23,13 +24,39 @@ function MovieListPageTemplate({ movies, title, action }) {
     })
     .filter((m) => {
       return languageFilter === "All" ? true: (m.original_language ?? "").toLowerCase() === languageFilter.toLowerCase()
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.release_date || a.first_air_date || 0);
+      const dateB = new Date(b.release_date || b.first_air_date || 0);
+      const ratingA = a.vote_average ?? 0;
+      const ratingB = b.vote_average ?? 0;
+      const titleA = (a.title || a.name || "").toLowerCase();
+      const titleB = (b.title || b.name || "").toLowerCase();
+
+      switch (sortOrderFilter) {
+        case "date_desc":
+          return dateB - dateA;
+        case "date_asc":
+          return dateA - dateB;
+        case "rating_desc":
+          return ratingB - ratingA;
+        case "rating_asc":
+          return ratingA - ratingB;
+        case "title_asc":
+          return titleA.localeCompare(titleB);
+        case "title_desc":
+          return titleB.localeCompare(titleA);
+        default:
+          return 0;
+      }
     });
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
-    else if(type === "genre") setGenreFilter(value);
+    else if (type === "genre") setGenreFilter(value);
     else if (type === "rating") setRatingFilter(value);
-    else setLanguageFilter(value);
+    else if (type == "language") setLanguageFilter(value);
+    else setSortOrderFilter(value);
   };
 
   return (
@@ -49,6 +76,7 @@ function MovieListPageTemplate({ movies, title, action }) {
             genreFilter={genreFilter}
             ratingFilter={ratingFilter}
             languageFilter={languageFilter}
+            sortOrderFilter={sortOrderFilter}
           />
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>
